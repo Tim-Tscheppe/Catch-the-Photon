@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
 		//Import Images to be used in the game.
 		photonImage = new Texture(Gdx.files.internal("PhotonScaled.png"));
 		solarPanelImage = new Texture(Gdx.files.internal("SolarPanelScaled.png"));
-		//TODO: Add sounds, sun in background. Start playback of music.
+	
 
 		//Create "view" of game with 800*400 pixel resolution (objects are 64*64)
 		camera = new OrthographicCamera();
@@ -51,7 +51,6 @@ public class GameScreen implements Screen {
 		photons = new Array<Rectangle>();
 		spawnPhoton();
 		
-		//TODO: Scoreboard, starting screen.
 
 	}
 
@@ -98,11 +97,10 @@ public class GameScreen implements Screen {
 		
 		
 		//Arrow key input instructions. 
-		//TODO: Make it move faster.
 		if (Gdx.input.isKeyPressed(Keys.LEFT))
-			solarPanel.x -= 200 * Gdx.graphics.getDeltaTime();
+			solarPanel.x -= 400 * Gdx.graphics.getDeltaTime();
 		if (Gdx.input.isKeyPressed(Keys.RIGHT))
-			solarPanel.x += 200 * Gdx.graphics.getDeltaTime();
+			solarPanel.x += 400 * Gdx.graphics.getDeltaTime();
 
 		//Make sure the solar panel stays on screen.
 		if (solarPanel.x < 0)
@@ -115,13 +113,14 @@ public class GameScreen implements Screen {
 			spawnPhoton();
 
 	
-		 //This block removes photons when they hit the solar panel
-	      //TODO End game when photon gets past panel.
+		 //This block removes photons when they hit the solar panel and ends game if they get past.
 	     for (Iterator<Rectangle> iter = photons.iterator(); iter.hasNext();) {
 				Rectangle photon = iter.next();
 				photon.y -= 200 * Gdx.graphics.getDeltaTime();
-				if (photon.y + 64 < 0)
+				if (photon.y + 64 < 0) {
 					iter.remove();
+					game.setScreen(new GameOverScreen(game));
+				}
 				if (photon.overlaps(solarPanel)) {
 					iter.remove();
 					photonsGathered++;
