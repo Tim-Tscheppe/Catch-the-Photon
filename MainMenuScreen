@@ -27,6 +27,7 @@ public class MainMenuScreen implements Screen {
 		game.batch.begin();
 		game.font.draw(game.batch, "EECE Final Project - Emma and Tim ", 100, 150);
 		game.font.draw(game.batch, "Click to start!", 100, 100);
+		game.font.draw(game.batch,  "Control the solar panel with arrow keys to catch the photon!", 350, 350);
 		game.batch.end();
 
 		if (Gdx.input.isTouched()) {
@@ -34,7 +35,7 @@ public class MainMenuScreen implements Screen {
 			dispose();
 		}
 		
-		//TODO: Make button to click to start game, make an info screen.
+		
 	}
 
 	@Override
